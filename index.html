@@ -4,76 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K-Pop Math Quest ⭐</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --pink: #FF6B9D;
+            --hot-pink: #FF1493;
             --purple: #C471ED;
             --blue: #12C2E9;
             --yellow: #F7D94C;
             --mint: #7FDBCA;
             --coral: #FF7F7F;
+            --bts-purple: #8B00FF;
+            --blackpink-pink: #FF007F;
         }
         
         body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            font-family: 'Poppins', 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
         
-        /* Floating stars background */
-        .stars {
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a0533, #2d1b4e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: 0;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating hearts and stars */
+        .floating-elements {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             pointer-events: none;
             overflow: hidden;
-            z-index: 0;
+            z-index: 1;
+        }
+        .floating {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.6;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Stars background */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 1;
         }
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
-            animation: twinkle 2s infinite;
+            animation: twinkle 3s ease-in-out infinite;
         }
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
         }
         
         .container {
             position: relative;
-            z-index: 1;
+            z-index: 10;
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
         }
         
-        /* Header */
+        /* Header with animated text */
         .header {
             text-align: center;
             padding: 30px 0;
         }
         .header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+            background: linear-gradient(135deg, #FF6B9D, #FF1493, #C471ED, #12C2E9, #FF6B9D);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(196, 113, 237, 0.5);
-            animation: glow 2s ease-in-out infinite alternate;
+            animation: rainbowText 5s ease infinite, bounce 2s ease-in-out infinite;
+            text-shadow: 0 0 50px rgba(255, 107, 157, 0.5);
         }
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5)); }
-            to { filter: drop-shadow(0 0 20px rgba(196, 113, 237, 0.8)); }
+        @keyframes rainbowText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         .header p {
-            color: #B8C5D6;
-            font-size: 1.2rem;
+            color: #E8D5F2;
+            font-size: 1.3rem;
             margin-top: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Glowing border animation */
+        @keyframes glowBorder {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 157, 0.5), 0 0 40px rgba(196, 113, 237, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 107, 157, 0.8), 0 0 60px rgba(196, 113, 237, 0.5); }
         }
         
         /* Score Bar */
@@ -81,104 +150,182 @@
             display: flex;
             justify-content: space-around;
             background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
             padding: 20px;
             margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            animation: glowBorder 3s ease-in-out infinite;
         }
         .score-item {
             text-align: center;
         }
         .score-label {
-            color: #8892A0;
-            font-size: 0.9rem;
+            color: #B8A9C9;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
         .score-value {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--yellow), var(--coral));
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--yellow), #FF9500, var(--coral));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
-        /* Artist Card */
+        /* Artist Card with photo */
         .artist-card {
-            background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,113,237,0.2));
-            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255,20,147,0.2), rgba(139,0,255,0.2), rgba(18,194,233,0.2));
+            border-radius: 30px;
             padding: 25px;
             margin-bottom: 25px;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.15);
             display: flex;
             align-items: center;
-            gap: 20px;
-            animation: slideIn 0.5s ease-out;
+            gap: 25px;
+            animation: slideInLeft 0.6s ease-out, glowBorder 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
         }
-        .artist-avatar {
-            width: 100px;
-            height: 100px;
+        .artist-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        .artist-photo {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--pink), var(--purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
+            object-fit: cover;
+            border: 4px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 30px rgba(255, 20, 147, 0.5);
+            animation: photoGlow 2s ease-in-out infinite alternate;
             flex-shrink: 0;
-            border: 3px solid rgba(255,255,255,0.3);
-            box-shadow: 0 0 20px rgba(196, 113, 237, 0.4);
+        }
+        @keyframes photoGlow {
+            from { box-shadow: 0 0 20px rgba(255, 20, 147, 0.5), 0 0 40px rgba(139, 0, 255, 0.3); }
+            to { box-shadow: 0 0 30px rgba(255, 20, 147, 0.8), 0 0 60px rgba(139, 0, 255, 0.5); }
+        }
+        
+        .artist-info {
+            flex: 1;
+            position: relative;
+            z-index: 1;
         }
         .artist-info h3 {
             color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
         }
         .artist-info p {
-            color: #B8C5D6;
+            color: #D4C5E8;
             font-size: 1rem;
+            margin-top: 5px;
+            line-height: 1.5;
         }
         .artist-badge {
             background: linear-gradient(135deg, var(--mint), var(--blue));
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 6px 18px;
+            border-radius: 25px;
             font-size: 0.8rem;
             font-weight: 700;
             color: #1a1a2e;
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 10px;
+            animation: badgePop 0.5s ease-out;
+        }
+        @keyframes badgePop {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .group-logo {
+            font-size: 2rem;
+            margin-left: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
-        /* Question Area */
+        /* Question Card */
         .question-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
             padding: 35px;
             margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.15);
+            animation: fadeInUp 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
         }
+        .question-card::after {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.5rem;
+            animation: spin 4s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
         .question-type {
             display: inline-block;
-            background: linear-gradient(135deg, var(--purple), var(--pink));
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            background: linear-gradient(135deg, var(--purple), var(--hot-pink));
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.95rem;
             font-weight: 700;
             color: white;
             margin-bottom: 20px;
+            animation: slideInRight 0.4s ease-out;
+            box-shadow: 0 5px 20px rgba(196, 113, 237, 0.4);
         }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
         .question-text {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            line-height: 1.6;
+            line-height: 1.7;
             margin-bottom: 25px;
+            animation: fadeIn 0.5s ease-out;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         .question-visual {
             display: flex;
             justify-content: center;
@@ -187,254 +334,362 @@
             flex-wrap: wrap;
         }
         
-        /* Visual elements for different question types */
+        /* Visual elements with animations */
         .grid-visual {
             display: grid;
-            gap: 3px;
+            gap: 4px;
             background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 12px;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .grid-cell {
-            width: 30px;
-            height: 30px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 4px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 6px;
             transition: all 0.3s;
+            animation: cellPop 0.5s ease-out backwards;
         }
         .grid-cell.filled {
             background: linear-gradient(135deg, var(--pink), var(--purple));
-            box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.6);
+        }
+        @keyframes cellPop {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         
         .shape-visual {
             background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 30px;
+            border-radius: 16px;
         }
         .rectangle {
-            border: 4px solid var(--mint);
-            border-radius: 8px;
+            border: 5px solid var(--mint);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 700;
             position: relative;
+            background: rgba(127, 219, 202, 0.1);
+            animation: rectGlow 2s ease-in-out infinite;
+        }
+        @keyframes rectGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(127, 219, 202, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(127, 219, 202, 0.6); }
         }
         .dimension {
             position: absolute;
             color: var(--yellow);
-            font-weight: 700;
-            font-size: 0.9rem;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px rgba(247, 217, 76, 0.5);
         }
-        .dimension.width { bottom: -25px; }
-        .dimension.height { right: -40px; }
+        .dimension.width { bottom: -30px; }
+        .dimension.height { right: -45px; }
         
         .fraction-visual {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
         .fraction-piece {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
-            border: 2px solid rgba(255,255,255,0.3);
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            border: 3px solid rgba(255,255,255,0.3);
             background: rgba(255,255,255,0.1);
+            animation: piecePop 0.4s ease-out backwards;
         }
         .fraction-piece.filled {
             background: linear-gradient(135deg, var(--coral), var(--yellow));
+            box-shadow: 0 0 20px rgba(255, 127, 127, 0.5);
+        }
+        @keyframes piecePop {
+            from { transform: scale(0) rotate(-180deg); }
+            to { transform: scale(1) rotate(0deg); }
         }
         
-        /* Answer Buttons */
+        /* Answer Buttons with hover effects */
         .answers {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
         .answer-btn {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 16px;
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 3px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 22px;
             color: white;
-            font-size: 1.4rem;
-            font-weight: 700;
-            font-family: 'Nunito', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .answer-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .answer-btn:hover::before {
+            left: 100%;
         }
         .answer-btn:hover {
-            background: rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, rgba(255,107,157,0.3), rgba(196,113,237,0.3));
             border-color: var(--pink);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
         }
         .answer-btn.correct {
-            background: linear-gradient(135deg, #2ECC71, #27AE60);
-            border-color: #2ECC71;
-            animation: pulse 0.5s;
+            background: linear-gradient(135deg, #00D26A, #00A651);
+            border-color: #00D26A;
+            animation: correctPop 0.6s ease-out;
+        }
+        @keyframes correctPop {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.1); }
+            60% { transform: scale(0.95); }
+            100% { transform: scale(1); }
         }
         .answer-btn.wrong {
-            background: linear-gradient(135deg, #E74C3C, #C0392B);
-            border-color: #E74C3C;
-            animation: shake 0.5s;
+            background: linear-gradient(135deg, #FF4757, #C44569);
+            border-color: #FF4757;
+            animation: wrongShake 0.5s ease-out;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        @keyframes shake {
+        @keyframes wrongShake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            20% { transform: translateX(-15px); }
+            40% { transform: translateX(15px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
         }
         
-        /* Feedback */
+        /* Feedback with confetti effect */
         .feedback {
             text-align: center;
-            min-height: 60px;
+            min-height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: white;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
         }
         
-        /* Start Screen */
+        /* Screens */
         .screen {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
         }
         .screen.hidden { display: none; }
         
+        /* Topic selection grid */
         .topic-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            margin: 30px 0;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 30px auto;
+            max-width: 600px;
         }
         .topic-btn {
-            background: rgba(255,255,255,0.1);
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 16px;
+            background: rgba(255,255,255,0.08);
+            border: 3px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
             padding: 20px 15px;
             color: white;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
             transition: all 0.3s;
         }
-        .topic-btn:hover, .topic-btn.selected {
+        .topic-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--pink);
+        }
+        .topic-btn.selected {
             background: linear-gradient(135deg, var(--pink), var(--purple));
             border-color: var(--pink);
-            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
         }
         .topic-btn .emoji {
-            font-size: 2rem;
+            font-size: 2.5rem;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            animation: topicBounce 2s ease-in-out infinite;
+        }
+        @keyframes topicBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
+        /* Start button */
         .start-btn {
-            background: linear-gradient(135deg, var(--pink), var(--purple));
+            background: linear-gradient(135deg, var(--hot-pink), var(--purple), var(--blue));
+            background-size: 200% 200%;
             border: none;
-            border-radius: 30px;
-            padding: 18px 50px;
+            border-radius: 35px;
+            padding: 20px 60px;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(196, 113, 237, 0.4);
-            margin-top: 20px;
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.4);
+            margin-top: 25px;
+            animation: gradientBG 3s ease infinite, buttonPulse 2s ease-in-out infinite;
+        }
+        @keyframes buttonPulse {
+            0%, 100% { box-shadow: 0 15px 40px rgba(255, 20, 147, 0.4); }
+            50% { box-shadow: 0 20px 50px rgba(255, 20, 147, 0.6); }
         }
         .start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(196, 113, 237, 0.6);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(255, 20, 147, 0.6);
+        }
+        
+        /* K-pop group photos slider */
+        .kpop-slider {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .kpop-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+            animation: thumbPop 0.5s ease-out backwards;
+        }
+        .kpop-thumb:hover {
+            transform: scale(1.2);
+            border-color: var(--pink);
+            box-shadow: 0 0 25px rgba(255, 107, 157, 0.6);
         }
         
         /* End Screen */
         .final-score {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--yellow), var(--coral));
+            background: linear-gradient(135deg, var(--yellow), #FF9500, var(--coral), var(--pink));
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: rainbowText 3s ease infinite;
         }
         .final-message {
-            color: #B8C5D6;
-            font-size: 1.3rem;
-            margin: 20px 0;
+            color: #E8D5F2;
+            font-size: 1.4rem;
+            margin: 25px 0;
         }
         .achievements {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 30px 0;
+            margin: 35px 0;
         }
         .achievement {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 20px;
-            border-radius: 16px;
-            text-align: center;
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,165,0,0.2));
+            padding: 20px 25px;
+            border-radius: 20px;
+            border: 2px solid rgba(255,215,0,0.3);
+            animation: achievePop 0.5s ease-out backwards;
         }
-        .achievement .emoji { font-size: 2rem; }
-        .achievement .label { color: #B8C5D6; font-size: 0.9rem; }
+        @keyframes achievePop {
+            from { transform: scale(0) rotate(-20deg); }
+            to { transform: scale(1) rotate(0deg); }
+        }
+        .achievement .emoji { font-size: 2.5rem; }
+        .achievement .label { color: #E8D5F2; font-size: 0.95rem; font-weight: 600; }
         
-        /* K-pop themed decorations */
-        .lightstick {
+        /* Confetti */
+        .confetti {
             position: fixed;
-            font-size: 2rem;
-            opacity: 0.3;
-            animation: float 6s ease-in-out infinite;
+            top: 0; left: 0; right: 0; bottom: 0;
             pointer-events: none;
+            z-index: 100;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+        .confetti-piece {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            top: -20px;
+            animation: confettiFall 4s linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* Lightstick cursor trail effect area */
+        .lightstick-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 1.5rem;
+            transition: all 0.1s;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header h1 { font-size: 2rem; }
+        /* Mobile responsive */
+        @media (max-width: 700px) {
+            .header h1 { font-size: 2.2rem; }
             .artist-card { flex-direction: column; text-align: center; }
             .answers { grid-template-columns: 1fr; }
-            .topic-grid { grid-template-columns: 1fr; }
+            .topic-grid { grid-template-columns: repeat(2, 1fr); }
+            .artist-photo { width: 100px; height: 100px; }
+            .kpop-slider { gap: 10px; }
+            .kpop-thumb { width: 60px; height: 60px; }
         }
     </style>
 </head>
 <body>
+    <div class="bg-gradient"></div>
     <div class="stars" id="stars"></div>
+    <div class="floating-elements" id="floating"></div>
+    <div class="confetti" id="confetti"></div>
     
     <div class="container">
         <!-- Start Screen -->
         <div id="start-screen" class="screen">
             <div class="header">
-                <h1>K-Pop Math Quest ⭐</h1>
-                <p>Learn math with your favorite K-pop stars!</p>
+                <h1>✨ K-Pop Math Quest ✨</h1>
+                <p>Learn math with your favorite K-pop stars! 💜</p>
+            </div>
+            
+            <div class="kpop-slider">
+                <img src="https://i.pinimg.com/originals/5b/2e/0b/5b2e0b8f7a3f8e9b4c1d3e5f7a9b2c4d.jpg" class="kpop-thumb" alt="K-pop" onerror="this.src='https://via.placeholder.com/80/FF6B9D/fff?text=BTS'">
+                <img src="https://i.pinimg.com/564x/bp/1.jpg" class="kpop-thumb" alt="K-pop" onerror="this.src='https://via.placeholder.com/80/000/FF69B4?text=BP'">
+                <img src="https://i.pinimg.com/564x/nj/1.jpg" class="kpop-thumb" alt="K-pop" onerror="this.src='https://via.placeholder.com/80/87CEEB/fff?text=NJ'">
+                <img src="https://i.pinimg.com/564x/sk/1.jpg" class="kpop-thumb" alt="K-pop" onerror="this.src='https://via.placeholder.com/80/000/fff?text=SKZ'">
+                <img src="https://i.pinimg.com/564x/tw/1.jpg" class="kpop-thumb" alt="K-pop" onerror="this.src='https://via.placeholder.com/80/FF9500/fff?text=TWICE'">
             </div>
             
             <div class="artist-card">
-                <div class="artist-avatar">🎤</div>
+                <img src="https://via.placeholder.com/120/8B00FF/fff?text=💜" class="artist-photo" alt="Welcome">
                 <div class="artist-info">
-                    <h3>Welcome, ARMY! 💜</h3>
-                    <p>Choose your math topics and practice with BTS, BLACKPINK, NewJeans, Stray Kids, and more!</p>
-                    <span class="artist-badge">Grade 4 Ontario Curriculum</span>
+                    <h3>Welcome, ARMY! 💜✨</h3>
+                    <p>Practice fractions, multiplication, division, area & perimeter with BTS, BLACKPINK, NewJeans, Stray Kids, TWICE and more!</p>
+                    <span class="artist-badge">🇨🇦 Grade 4 Ontario Curriculum</span>
                 </div>
+                <span class="group-logo">🎤</span>
             </div>
             
-            <h3 style="color: white; margin-bottom: 15px;">Choose Topics:</h3>
+            <h3 style="color: white; margin-bottom: 15px; font-size: 1.3rem;">🎯 Choose Your Topics:</h3>
             <div class="topic-grid">
                 <button class="topic-btn selected" data-topic="fractions">
                     <span class="emoji">🍕</span>
@@ -442,7 +697,7 @@
                 </button>
                 <button class="topic-btn selected" data-topic="multiplication">
                     <span class="emoji">✖️</span>
-                    Multiplication
+                    Multiply
                 </button>
                 <button class="topic-btn selected" data-topic="division">
                     <span class="emoji">➗</span>
@@ -458,41 +713,38 @@
                 </button>
                 <button class="topic-btn selected" data-topic="mixed">
                     <span class="emoji">🎯</span>
-                    Mixed Challenge
+                    Mixed!
                 </button>
             </div>
             
-            <button class="start-btn" onclick="startGame()">Let's Go! 🚀</button>
+            <button class="start-btn" onclick="startGame()">🚀 Start Concert! 🎤</button>
         </div>
         
         <!-- Game Screen -->
         <div id="game-screen" class="screen hidden">
-            <div class="header">
-                <h1>K-Pop Math Quest ⭐</h1>
-            </div>
-            
             <div class="score-bar">
                 <div class="score-item">
-                    <div class="score-label">Score</div>
+                    <div class="score-label">⭐ Score</div>
                     <div class="score-value" id="score">0</div>
                 </div>
                 <div class="score-item">
-                    <div class="score-label">Question</div>
+                    <div class="score-label">🎵 Song</div>
                     <div class="score-value"><span id="current">1</span>/10</div>
                 </div>
                 <div class="score-item">
-                    <div class="score-label">Streak</div>
-                    <div class="score-value" id="streak">🔥 0</div>
+                    <div class="score-label">🔥 Streak</div>
+                    <div class="score-value" id="streak">0</div>
                 </div>
             </div>
             
             <div class="artist-card" id="artist-card">
-                <div class="artist-avatar" id="artist-emoji">🎤</div>
+                <img id="artist-photo" src="" class="artist-photo" alt="K-pop Star">
                 <div class="artist-info">
                     <h3 id="artist-name">BTS</h3>
                     <p id="artist-hint">Hint will appear here...</p>
                     <span class="artist-badge" id="question-topic">Multiplication</span>
                 </div>
+                <span class="group-logo" id="group-emoji">💜</span>
             </div>
             
             <div class="question-card">
@@ -508,7 +760,7 @@
         <!-- End Screen -->
         <div id="end-screen" class="screen hidden">
             <div class="header">
-                <h1>Concert Complete! 🎉</h1>
+                <h1>🎉 Concert Complete! 🎉</h1>
             </div>
             
             <div class="final-score" id="final-score">0</div>
@@ -516,45 +768,143 @@
             
             <div class="achievements" id="achievements"></div>
             
-            <button class="start-btn" onclick="location.reload()">Play Again! 🎤</button>
+            <button class="start-btn" onclick="location.reload()">🎤 Encore! Play Again!</button>
         </div>
     </div>
     
     <script>
-        // K-pop artists data
+        // K-pop artists with photos (using placeholder service for reliability)
         const kpopArtists = [
-            { name: "BTS", emoji: "💜", group: "BTS", members: ["RM", "Jin", "Suga", "J-Hope", "Jimin", "V", "Jungkook"] },
-            { name: "BLACKPINK", emoji: "🖤💗", group: "BLACKPINK", members: ["Jisoo", "Jennie", "Rosé", "Lisa"] },
-            { name: "NewJeans", emoji: "🐰", group: "NewJeans", members: ["Minji", "Hanni", "Danielle", "Haerin", "Hyein"] },
-            { name: "Stray Kids", emoji: "🖤", group: "Stray Kids", members: ["Bang Chan", "Lee Know", "Changbin", "Hyunjin", "Han", "Felix", "Seungmin", "I.N"] },
-            { name: "TWICE", emoji: "🍭", group: "TWICE", members: ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"] },
-            { name: "aespa", emoji: "✨", group: "aespa", members: ["Karina", "Giselle", "Winter", "Ningning"] },
-            { name: "IVE", emoji: "💎", group: "IVE", members: ["Yujin", "Gaeul", "Rei", "Wonyoung", "Liz", "Leeseo"] },
-            { name: "LE SSERAFIM", emoji: "🪽", group: "LE SSERAFIM", members: ["Sakura", "Chaewon", "Yunjin", "Kazuha", "Eunchae"] },
-            { name: "TXT", emoji: "💙", group: "TXT", members: ["Soobin", "Yeonjun", "Beomgyu", "Taehyun", "Huening Kai"] },
-            { name: "ENHYPEN", emoji: "🦋", group: "ENHYPEN", members: ["Jungwon", "Heeseung", "Jay", "Jake", "Sunghoon", "Sunoo", "Ni-ki"] }
+            { 
+                name: "BTS", 
+                emoji: "💜", 
+                color: "#8B00FF",
+                members: ["RM", "Jin", "Suga", "J-Hope", "Jimin", "V", "Jungkook"],
+                photo: "https://via.placeholder.com/120/8B00FF/fff?text=BTS+💜"
+            },
+            { 
+                name: "BLACKPINK", 
+                emoji: "🖤💗", 
+                color: "#FF007F",
+                members: ["Jisoo", "Jennie", "Rosé", "Lisa"],
+                photo: "https://via.placeholder.com/120/FF007F/fff?text=BLACKPINK"
+            },
+            { 
+                name: "NewJeans", 
+                emoji: "🐰", 
+                color: "#87CEEB",
+                members: ["Minji", "Hanni", "Danielle", "Haerin", "Hyein"],
+                photo: "https://via.placeholder.com/120/87CEEB/fff?text=NewJeans"
+            },
+            { 
+                name: "Stray Kids", 
+                emoji: "🖤", 
+                color: "#FF0000",
+                members: ["Bang Chan", "Lee Know", "Changbin", "Hyunjin", "Han", "Felix", "Seungmin", "I.N"],
+                photo: "https://via.placeholder.com/120/FF0000/fff?text=SKZ"
+            },
+            { 
+                name: "TWICE", 
+                emoji: "🍭", 
+                color: "#FF9500",
+                members: ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"],
+                photo: "https://via.placeholder.com/120/FF9500/fff?text=TWICE"
+            },
+            { 
+                name: "aespa", 
+                emoji: "✨", 
+                color: "#7B68EE",
+                members: ["Karina", "Giselle", "Winter", "Ningning"],
+                photo: "https://via.placeholder.com/120/7B68EE/fff?text=aespa"
+            },
+            { 
+                name: "IVE", 
+                emoji: "💎", 
+                color: "#FFD700",
+                members: ["Yujin", "Gaeul", "Rei", "Wonyoung", "Liz", "Leeseo"],
+                photo: "https://via.placeholder.com/120/FFD700/333?text=IVE"
+            },
+            { 
+                name: "LE SSERAFIM", 
+                emoji: "🪽", 
+                color: "#000080",
+                members: ["Sakura", "Chaewon", "Yunjin", "Kazuha", "Eunchae"],
+                photo: "https://via.placeholder.com/120/000080/fff?text=LESSERAFIM"
+            },
+            { 
+                name: "TXT", 
+                emoji: "💙", 
+                color: "#00CED1",
+                members: ["Soobin", "Yeonjun", "Beomgyu", "Taehyun", "Huening Kai"],
+                photo: "https://via.placeholder.com/120/00CED1/fff?text=TXT"
+            },
+            { 
+                name: "ENHYPEN", 
+                emoji: "🦋", 
+                color: "#FF6347",
+                members: ["Jungwon", "Heeseung", "Jay", "Jake", "Sunghoon", "Sunoo", "Ni-ki"],
+                photo: "https://via.placeholder.com/120/FF6347/fff?text=ENHYPEN"
+            }
         ];
         
         let score = 0;
         let current = 0;
         let streak = 0;
+        let maxStreak = 0;
         let questions = [];
         let selectedTopics = ['fractions', 'multiplication', 'division', 'area', 'perimeter', 'mixed'];
         
-        // Create stars
+        // Create animated background elements
         function createStars() {
             const container = document.getElementById('stars');
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 60; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
-                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.width = star.style.height = (Math.random() * 4 + 1) + 'px';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
                 container.appendChild(star);
             }
         }
+        
+        function createFloatingElements() {
+            const container = document.getElementById('floating');
+            const emojis = ['💜', '🩷', '⭐', '✨', '🎤', '🎵', '🎶', '💎', '🌟', '🦋', '🍭', '💗'];
+            
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'floating';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 10000);
+            }, 800);
+        }
+        
         createStars();
+        createFloatingElements();
+        
+        // Confetti effect
+        function createConfetti() {
+            const container = document.getElementById('confetti');
+            const colors = ['#FF6B9D', '#C471ED', '#12C2E9', '#F7D94C', '#FF7F7F', '#7FDBCA'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti-piece';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    container.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 50);
+            }
+        }
         
         // Topic selection
         document.querySelectorAll('.topic-btn').forEach(btn => {
@@ -586,11 +936,11 @@
                 return {
                     artist,
                     topic: 'Fractions',
-                    question: `${artist.name} gave out ${den} concert lightsticks. ${num} of them are glowing. What fraction of lightsticks are glowing?`,
+                    question: `${artist.name} handed out ${den} glowing lightsticks at their concert! ${num} of them are ${artist.emoji} purple. What fraction are purple?`,
                     visual: { type: 'fraction', data: visual },
                     answer: `${num}/${den}`,
                     options: generateFractionOptions(num, den),
-                    hint: `Count the glowing lightsticks! ${artist.emoji}`
+                    hint: `Count the purple ones! ${artist.emoji}`
                 };
             } else if (type === 'compare') {
                 const pairs = [['1/2', '1/4'], ['1/3', '1/2'], ['2/4', '1/4'], ['3/4', '1/2'], ['2/3', '1/3']];
@@ -598,15 +948,17 @@
                 const [a, b] = Math.random() > 0.5 ? pair : [pair[1], pair[0]];
                 const aVal = eval(a), bVal = eval(b);
                 const answer = aVal > bVal ? '>' : aVal < bVal ? '<' : '=';
+                const member1 = artist.members[0];
+                const member2 = artist.members[1] || artist.members[0];
                 
                 return {
                     artist,
                     topic: 'Fractions',
-                    question: `${artist.members[0]} ate ${a} of a pizza. ${artist.members[1] || artist.members[0]} ate ${b} of another same-sized pizza. Who ate more?`,
+                    question: `${member1} ate ${a} of a cake. ${member2} ate ${b} of an identical cake. Who ate MORE? (Is ${a} __ ${b}?)`,
                     visual: null,
                     answer: answer,
-                    options: ['<', '>', '='].sort(() => Math.random() - 0.5).concat(['≠']),
-                    hint: `Compare ${a} and ${b}! ${artist.emoji}`
+                    options: ['<', '>', '=', '≠'].sort(() => Math.random() - 0.5),
+                    hint: `Which fraction is bigger? ${artist.emoji}`
                 };
             } else {
                 const equivs = [['1/2', '2/4'], ['1/2', '3/6'], ['2/4', '4/8'], ['1/3', '2/6'], ['2/3', '4/6']];
@@ -615,7 +967,7 @@
                 return {
                     artist,
                     topic: 'Fractions',
-                    question: `${artist.name}'s album is ${pair[0]} sold out. Which fraction is the same?`,
+                    question: `${artist.name}'s new album is ${pair[0]} sold out! Which fraction shows the SAME amount?`,
                     visual: null,
                     answer: pair[1],
                     options: generateFractionOptions(parseInt(pair[1].split('/')[0]), parseInt(pair[1].split('/')[1])),
@@ -643,16 +995,16 @@
             const answer = a * b;
             
             const scenarios = [
-                `${artist.name} has ${a} dance practice rooms. Each room has ${b} mirrors. How many mirrors in total?`,
-                `${artist.members[0]} bought ${a} boxes of ${artist.emoji} merchandise. Each box has ${b} items. How many items total?`,
-                `There are ${a} rows of fans at the ${artist.name} concert. Each row has ${b} fans. How many fans are there?`
+                `${artist.name} has ${a} dance studios. Each studio has ${b} mirrors. How many mirrors in TOTAL? 💃`,
+                `${artist.members[0]} bought ${a} boxes of merch. Each box has ${b} items. How many items altogether? 📦`,
+                `There are ${a} rows of fans at the ${artist.name} concert. Each row has ${b} ARMY members. How many fans total? 🎤`
             ];
             
             return {
                 artist,
                 topic: 'Multiplication',
                 question: scenarios[Math.floor(Math.random() * scenarios.length)],
-                visual: { type: 'grid', rows: a, cols: b },
+                visual: { type: 'grid', rows: Math.min(a, 6), cols: Math.min(b, 8) },
                 answer: answer.toString(),
                 options: generateNumberOptions(answer),
                 hint: `${a} × ${b} = ? ${artist.emoji}`
@@ -665,11 +1017,10 @@
             const quotient = Math.floor(Math.random() * 10) + 1;
             const dividend = divisor * quotient;
             
-            const memberCount = artist.members.length;
             const scenarios = [
-                `${artist.name} has ${dividend} concert tickets to share equally among ${divisor} fan clubs. How many tickets does each club get?`,
-                `${dividend} lightsticks are divided equally among ${divisor} fans. How many does each fan get?`,
-                `${artist.members[0]} has ${dividend} photo cards to give to ${divisor} friends equally. How many does each friend get?`
+                `${artist.name} has ${dividend} concert tickets to share equally among ${divisor} fan clubs. How many tickets does each club get? 🎫`,
+                `${dividend} ${artist.emoji} lightsticks are divided equally among ${divisor} friends. How many does each friend get?`,
+                `${artist.members[0]} has ${dividend} photo cards to give to ${divisor} lucky fans equally. How many does each fan receive? 📸`
             ];
             
             return {
@@ -690,9 +1041,9 @@
             const area = width * height;
             
             const scenarios = [
-                `${artist.name}'s stage is a rectangle that is ${width}m wide and ${height}m long. What is the area of the stage?`,
-                `${artist.members[0]}'s poster is ${width}cm by ${height}cm. What is the area?`,
-                `The ${artist.name} fan banner is ${width} feet wide and ${height} feet tall. What is its area?`
+                `${artist.name}'s stage is a rectangle: ${width}m wide and ${height}m long. What is the AREA of the stage? 🎭`,
+                `${artist.members[0]}'s giant poster is ${width}cm by ${height}cm. What is its area? 🖼️`,
+                `The ${artist.name} fan banner is ${width} feet wide and ${height} feet tall. What is the area? 📐`
             ];
             
             return {
@@ -713,9 +1064,9 @@
             const perimeter = 2 * (width + height);
             
             const scenarios = [
-                `${artist.name} wants to put lights around their rectangular stage (${width}m × ${height}m). How many meters of lights do they need?`,
-                `${artist.members[0]} is framing a ${width}cm by ${height}cm photo. How much frame material is needed?`,
-                `A rectangular ${artist.name} banner is ${width}m wide and ${height}m tall. What is its perimeter?`
+                `${artist.name} wants to put LED lights around their rectangular stage (${width}m × ${height}m). How many meters of lights? 💡`,
+                `${artist.members[0]} is framing a ${width}cm × ${height}cm photo. How much frame is needed for all sides? 🖼️`,
+                `A rectangular ${artist.name} banner is ${width}m wide and ${height}m tall. What is the PERIMETER (distance around)? 📏`
             ];
             
             return {
@@ -732,7 +1083,7 @@
         function generateNumberOptions(correct) {
             const options = [correct.toString()];
             while (options.length < 4) {
-                const offset = Math.floor(Math.random() * 10) - 5;
+                const offset = Math.floor(Math.random() * 15) - 7;
                 const fake = Math.max(1, correct + offset + (options.length * (Math.random() > 0.5 ? 1 : -1)));
                 if (!options.includes(fake.toString()) && fake !== correct) {
                     options.push(fake.toString());
@@ -772,9 +1123,10 @@
             if (visual.type === 'fraction') {
                 const div = document.createElement('div');
                 div.className = 'fraction-visual';
-                visual.data.forEach(filled => {
+                visual.data.forEach((filled, i) => {
                     const piece = document.createElement('div');
                     piece.className = 'fraction-piece' + (filled ? ' filled' : '');
+                    piece.style.animationDelay = (i * 0.1) + 's';
                     div.appendChild(piece);
                 });
                 container.appendChild(div);
@@ -783,11 +1135,11 @@
             if (visual.type === 'grid') {
                 const grid = document.createElement('div');
                 grid.className = 'grid-visual';
-                grid.style.gridTemplateColumns = `repeat(${visual.cols}, 30px)`;
+                grid.style.gridTemplateColumns = `repeat(${visual.cols}, 35px)`;
                 for (let i = 0; i < visual.rows * visual.cols; i++) {
                     const cell = document.createElement('div');
                     cell.className = 'grid-cell filled';
-                    cell.style.animationDelay = (i * 0.05) + 's';
+                    cell.style.animationDelay = (i * 0.03) + 's';
                     grid.appendChild(cell);
                 }
                 container.appendChild(grid);
@@ -798,16 +1150,16 @@
                 wrapper.className = 'shape-visual';
                 const rect = document.createElement('div');
                 rect.className = 'rectangle';
-                rect.style.width = (visual.width * 15) + 'px';
-                rect.style.height = (visual.height * 15) + 'px';
+                rect.style.width = (visual.width * 18) + 'px';
+                rect.style.height = (visual.height * 18) + 'px';
                 
                 const widthLabel = document.createElement('span');
                 widthLabel.className = 'dimension width';
-                widthLabel.textContent = visual.width + (visual.showArea ? 'm' : '');
+                widthLabel.textContent = visual.width + 'm';
                 
                 const heightLabel = document.createElement('span');
                 heightLabel.className = 'dimension height';
-                heightLabel.textContent = visual.height + (visual.showArea ? 'm' : '');
+                heightLabel.textContent = visual.height + 'm';
                 
                 rect.appendChild(widthLabel);
                 rect.appendChild(heightLabel);
@@ -829,19 +1181,20 @@
         function showQuestion() {
             const q = questions[current];
             
-            document.getElementById('artist-name').textContent = q.artist.name;
-            document.getElementById('artist-emoji').textContent = q.artist.emoji;
+            document.getElementById('artist-name').textContent = q.artist.name + ' ' + q.artist.emoji;
+            document.getElementById('artist-photo').src = q.artist.photo;
             document.getElementById('artist-hint').textContent = q.hint;
             document.getElementById('question-topic').textContent = q.topic;
             document.getElementById('question-type').textContent = q.topic;
             document.getElementById('question-text').textContent = q.question;
+            document.getElementById('group-emoji').textContent = q.artist.emoji;
             document.getElementById('feedback').textContent = '';
             
             renderVisual(q.visual);
             
             const answersDiv = document.getElementById('answers');
-            answersDiv.innerHTML = q.options.map(opt => 
-                `<button class="answer-btn" onclick="checkAnswer('${opt}', this)">${opt}</button>`
+            answersDiv.innerHTML = q.options.map((opt, i) => 
+                `<button class="answer-btn" style="animation-delay: ${i * 0.1}s" onclick="checkAnswer('${opt}', this)">${opt}</button>`
             ).join('');
         }
         
@@ -854,9 +1207,19 @@
             if (correct) {
                 btn.classList.add('correct');
                 streak++;
-                const points = 10 + (streak > 1 ? streak * 2 : 0);
+                if (streak > maxStreak) maxStreak = streak;
+                const points = 10 + (streak > 1 ? streak * 3 : 0);
                 score += points;
-                const cheers = ['💜 Perfect!', '✨ Amazing!', '🌟 Daebak!', '🔥 Fighting!', '⭐ Incredible!', '🎤 You\'re a star!'];
+                createConfetti();
+                const cheers = [
+                    '💜 PERFECT! Daebak!', 
+                    '✨ AMAZING! You\'re a star!', 
+                    '🌟 INCREDIBLE! Fighting!', 
+                    '🔥 ON FIRE! Jjang!',
+                    '⭐ SUPERSTAR! Saranghae!',
+                    '🎤 LEGEND! You slayed!',
+                    '💎 FLAWLESS! Mic drop!'
+                ];
                 document.getElementById('feedback').textContent = cheers[Math.floor(Math.random() * cheers.length)];
             } else {
                 btn.classList.add('wrong');
@@ -864,11 +1227,11 @@
                     if (b.textContent === q.answer) b.classList.add('correct');
                 });
                 streak = 0;
-                document.getElementById('feedback').textContent = `The answer was ${q.answer} 💪 Keep going!`;
+                document.getElementById('feedback').textContent = `The answer was ${q.answer} 💪 You got this!`;
             }
             
             document.getElementById('score').textContent = score;
-            document.getElementById('streak').textContent = `🔥 ${streak}`;
+            document.getElementById('streak').textContent = streak;
             
             setTimeout(() => {
                 current++;
@@ -878,7 +1241,7 @@
                 } else {
                     endGame();
                 }
-            }, 1800);
+            }, 2000);
         }
         
         function endGame() {
@@ -886,11 +1249,16 @@
             document.getElementById('end-screen').classList.remove('hidden');
             document.getElementById('final-score').textContent = score;
             
+            createConfetti();
+            setTimeout(createConfetti, 500);
+            setTimeout(createConfetti, 1000);
+            
             let message = '';
-            if (score >= 130) message = '🏆 Superstar! You\'re ready for a world tour!';
-            else if (score >= 100) message = '🌟 Amazing! Main dancer energy!';
-            else if (score >= 70) message = '💪 Great job! Keep practicing, trainee!';
-            else message = '🎤 Good start! Every idol starts somewhere!';
+            if (score >= 140) message = '🏆 LEGENDARY! You\'re ready for a WORLD TOUR!';
+            else if (score >= 110) message = '🌟 SUPERSTAR! Main vocalist energy!';
+            else if (score >= 80) message = '💪 GREAT JOB! You\'re debut-ready!';
+            else if (score >= 50) message = '🎤 NICE! Keep practicing, trainee!';
+            else message = '✨ Good start! Every idol begins somewhere!';
             
             document.getElementById('final-message').textContent = message;
             
@@ -900,11 +1268,13 @@
             
             const achievements = [];
             if (score >= 100) achievements.push({ emoji: '🏆', label: 'High Score!' });
-            if (streak >= 3) achievements.push({ emoji: '🔥', label: 'Hot Streak!' });
-            if (selectedTopics.length >= 4) achievements.push({ emoji: '📚', label: 'Multi-Talent!' });
+            if (maxStreak >= 5) achievements.push({ emoji: '🔥', label: `${maxStreak} Streak!` });
+            if (maxStreak >= 3) achievements.push({ emoji: '⚡', label: 'On Fire!' });
+            if (selectedTopics.length >= 4) achievements.push({ emoji: '📚', label: 'Multi-Talented!' });
+            if (score >= 140) achievements.push({ emoji: '👑', label: 'K-Pop Royalty!' });
             
-            achievements.forEach(a => {
-                achievementsDiv.innerHTML += `<div class="achievement"><div class="emoji">${a.emoji}</div><div class="label">${a.label}</div></div>`;
+            achievements.forEach((a, i) => {
+                achievementsDiv.innerHTML += `<div class="achievement" style="animation-delay: ${i * 0.2}s"><div class="emoji">${a.emoji}</div><div class="label">${a.label}</div></div>`;
             });
         }
     </script>
