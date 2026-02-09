@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Pop Math Quest ⭐</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --pink: #FF6B9D;
+            --purple: #C471ED;
+            --blue: #12C2E9;
+            --yellow: #F7D94C;
+            --mint: #7FDBCA;
+            --coral: #FF7F7F;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Floating stars background */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(196, 113, 237, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(196, 113, 237, 0.8)); }
+        }
+        .header p {
+            color: #B8C5D6;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        /* Score Bar */
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .score-item {
+            text-align: center;
+        }
+        .score-label {
+            color: #8892A0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .score-value {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--yellow), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Artist Card */
+        .artist-card {
+            background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,113,237,0.2));
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .artist-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 20px rgba(196, 113, 237, 0.4);
+        }
+        .artist-info h3 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .artist-info p {
+            color: #B8C5D6;
+            font-size: 1rem;
+        }
+        .artist-badge {
+            background: linear-gradient(135deg, var(--mint), var(--blue));
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        
+        /* Question Area */
+        .question-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .question-type {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .question-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .question-visual {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        /* Visual elements for different question types */
+        .grid-visual {
+            display: grid;
+            gap: 3px;
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+        .grid-cell {
+            width: 30px;
+            height: 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .grid-cell.filled {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+        }
+        
+        .shape-visual {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rectangle {
+            border: 4px solid var(--mint);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            position: relative;
+        }
+        .dimension {
+            position: absolute;
+            color: var(--yellow);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .dimension.width { bottom: -25px; }
+        .dimension.height { right: -40px; }
+        
+        .fraction-visual {
+            display: flex;
+            gap: 5px;
+        }
+        .fraction-piece {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+        }
+        .fraction-piece.filled {
+            background: linear-gradient(135deg, var(--coral), var(--yellow));
+        }
+        
+        /* Answer Buttons */
+        .answers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .answer-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .answer-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: var(--pink);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+        .answer-btn.correct {
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            border-color: #2ECC71;
+            animation: pulse 0.5s;
+        }
+        .answer-btn.wrong {
+            background: linear-gradient(135deg, #E74C3C, #C0392B);
+            border-color: #E74C3C;
+            animation: shake 0.5s;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        /* Feedback */
+        .feedback {
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        /* Start Screen */
+        .screen {
+            text-align: center;
+            padding: 40px;
+        }
+        .screen.hidden { display: none; }
+        
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .topic-btn {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 20px 15px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .topic-btn:hover, .topic-btn.selected {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            border-color: var(--pink);
+            transform: scale(1.02);
+        }
+        .topic-btn .emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .start-btn {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            border: none;
+            border-radius: 30px;
+            padding: 18px 50px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            font-family: 'Nunito', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(196, 113, 237, 0.4);
+            margin-top: 20px;
+        }
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(196, 113, 237, 0.6);
+        }
+        
+        /* End Screen */
+        .final-score {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--yellow), var(--coral));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .final-message {
+            color: #B8C5D6;
+            font-size: 1.3rem;
+            margin: 20px 0;
+        }
+        .achievements {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .achievement {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .achievement .emoji { font-size: 2rem; }
+        .achievement .label { color: #B8C5D6; font-size: 0.9rem; }
+        
+        /* K-pop themed decorations */
+        .lightstick {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2rem; }
+            .artist-card { flex-direction: column; text-align: center; }
+            .answers { grid-template-columns: 1fr; }
+            .topic-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen">
+            <div class="header">
+                <h1>K-Pop Math Quest ⭐</h1>
+                <p>Learn math with your favorite K-pop stars!</p>
+            </div>
+            
+            <div class="artist-card">
+                <div class="artist-avatar">🎤</div>
+                <div class="artist-info">
+                    <h3>Welcome, ARMY! 💜</h3>
+                    <p>Choose your math topics and practice with BTS, BLACKPINK, NewJeans, Stray Kids, and more!</p>
+                    <span class="artist-badge">Grade 4 Ontario Curriculum</span>
+                </div>
+            </div>
+            
+            <h3 style="color: white; margin-bottom: 15px;">Choose Topics:</h3>
+            <div class="topic-grid">
+                <button class="topic-btn selected" data-topic="fractions">
+                    <span class="emoji">🍕</span>
+                    Fractions
+                </button>
+                <button class="topic-btn selected" data-topic="multiplication">
+                    <span class="emoji">✖️</span>
+                    Multiplication
+                </button>
+                <button class="topic-btn selected" data-topic="division">
+                    <span class="emoji">➗</span>
+                    Division
+                </button>
+                <button class="topic-btn selected" data-topic="area">
+                    <span class="emoji">⬛</span>
+                    Area
+                </button>
+                <button class="topic-btn selected" data-topic="perimeter">
+                    <span class="emoji">📏</span>
+                    Perimeter
+                </button>
+                <button class="topic-btn selected" data-topic="mixed">
+                    <span class="emoji">🎯</span>
+                    Mixed Challenge
+                </button>
+            </div>
+            
+            <button class="start-btn" onclick="startGame()">Let's Go! 🚀</button>
+        </div>
+        
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <div class="header">
+                <h1>K-Pop Math Quest ⭐</h1>
+            </div>
+            
+            <div class="score-bar">
+                <div class="score-item">
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="score">0</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">Question</div>
+                    <div class="score-value"><span id="current">1</span>/10</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-label">Streak</div>
+                    <div class="score-value" id="streak">🔥 0</div>
+                </div>
+            </div>
+            
+            <div class="artist-card" id="artist-card">
+                <div class="artist-avatar" id="artist-emoji">🎤</div>
+                <div class="artist-info">
+                    <h3 id="artist-name">BTS</h3>
+                    <p id="artist-hint">Hint will appear here...</p>
+                    <span class="artist-badge" id="question-topic">Multiplication</span>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <div class="question-type" id="question-type">Multiplication</div>
+                <div class="question-text" id="question-text">Loading question...</div>
+                <div class="question-visual" id="question-visual"></div>
+                <div class="answers" id="answers"></div>
+            </div>
+            
+            <div class="feedback" id="feedback"></div>
+        </div>
+        
+        <!-- End Screen -->
+        <div id="end-screen" class="screen hidden">
+            <div class="header">
+                <h1>Concert Complete! 🎉</h1>
+            </div>
+            
+            <div class="final-score" id="final-score">0</div>
+            <div class="final-message" id="final-message">Amazing performance!</div>
+            
+            <div class="achievements" id="achievements"></div>
+            
+            <button class="start-btn" onclick="location.reload()">Play Again! 🎤</button>
+        </div>
+    </div>
+    
+    <script>
+        // K-pop artists data
+        const kpopArtists = [
+            { name: "BTS", emoji: "💜", group: "BTS", members: ["RM", "Jin", "Suga", "J-Hope", "Jimin", "V", "Jungkook"] },
+            { name: "BLACKPINK", emoji: "🖤💗", group: "BLACKPINK", members: ["Jisoo", "Jennie", "Rosé", "Lisa"] },
+            { name: "NewJeans", emoji: "🐰", group: "NewJeans", members: ["Minji", "Hanni", "Danielle", "Haerin", "Hyein"] },
+            { name: "Stray Kids", emoji: "🖤", group: "Stray Kids", members: ["Bang Chan", "Lee Know", "Changbin", "Hyunjin", "Han", "Felix", "Seungmin", "I.N"] },
+            { name: "TWICE", emoji: "🍭", group: "TWICE", members: ["Nayeon", "Jeongyeon", "Momo", "Sana", "Jihyo", "Mina", "Dahyun", "Chaeyoung", "Tzuyu"] },
+            { name: "aespa", emoji: "✨", group: "aespa", members: ["Karina", "Giselle", "Winter", "Ningning"] },
+            { name: "IVE", emoji: "💎", group: "IVE", members: ["Yujin", "Gaeul", "Rei", "Wonyoung", "Liz", "Leeseo"] },
+            { name: "LE SSERAFIM", emoji: "🪽", group: "LE SSERAFIM", members: ["Sakura", "Chaewon", "Yunjin", "Kazuha", "Eunchae"] },
+            { name: "TXT", emoji: "💙", group: "TXT", members: ["Soobin", "Yeonjun", "Beomgyu", "Taehyun", "Huening Kai"] },
+            { name: "ENHYPEN", emoji: "🦋", group: "ENHYPEN", members: ["Jungwon", "Heeseung", "Jay", "Jake", "Sunghoon", "Sunoo", "Ni-ki"] }
+        ];
+        
+        let score = 0;
+        let current = 0;
+        let streak = 0;
+        let questions = [];
+        let selectedTopics = ['fractions', 'multiplication', 'division', 'area', 'perimeter', 'mixed'];
+        
+        // Create stars
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+        createStars();
+        
+        // Topic selection
+        document.querySelectorAll('.topic-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('selected');
+                const topic = btn.dataset.topic;
+                if (selectedTopics.includes(topic)) {
+                    selectedTopics = selectedTopics.filter(t => t !== topic);
+                } else {
+                    selectedTopics.push(topic);
+                }
+            });
+        });
+        
+        function getRandomArtist() {
+            return kpopArtists[Math.floor(Math.random() * kpopArtists.length)];
+        }
+        
+        function generateFractionQuestion() {
+            const artist = getRandomArtist();
+            const types = ['identify', 'compare', 'equivalent'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            
+            if (type === 'identify') {
+                const den = [2, 3, 4, 5, 6, 8][Math.floor(Math.random() * 6)];
+                const num = Math.floor(Math.random() * (den - 1)) + 1;
+                const visual = Array(den).fill(false).map((_, i) => i < num);
+                
+                return {
+                    artist,
+                    topic: 'Fractions',
+                    question: `${artist.name} gave out ${den} concert lightsticks. ${num} of them are glowing. What fraction of lightsticks are glowing?`,
+                    visual: { type: 'fraction', data: visual },
+                    answer: `${num}/${den}`,
+                    options: generateFractionOptions(num, den),
+                    hint: `Count the glowing lightsticks! ${artist.emoji}`
+                };
+            } else if (type === 'compare') {
+                const pairs = [['1/2', '1/4'], ['1/3', '1/2'], ['2/4', '1/4'], ['3/4', '1/2'], ['2/3', '1/3']];
+                const pair = pairs[Math.floor(Math.random() * pairs.length)];
+                const [a, b] = Math.random() > 0.5 ? pair : [pair[1], pair[0]];
+                const aVal = eval(a), bVal = eval(b);
+                const answer = aVal > bVal ? '>' : aVal < bVal ? '<' : '=';
+                
+                return {
+                    artist,
+                    topic: 'Fractions',
+                    question: `${artist.members[0]} ate ${a} of a pizza. ${artist.members[1] || artist.members[0]} ate ${b} of another same-sized pizza. Who ate more?`,
+                    visual: null,
+                    answer: answer,
+                    options: ['<', '>', '='].sort(() => Math.random() - 0.5).concat(['≠']),
+                    hint: `Compare ${a} and ${b}! ${artist.emoji}`
+                };
+            } else {
+                const equivs = [['1/2', '2/4'], ['1/2', '3/6'], ['2/4', '4/8'], ['1/3', '2/6'], ['2/3', '4/6']];
+                const pair = equivs[Math.floor(Math.random() * equivs.length)];
+                
+                return {
+                    artist,
+                    topic: 'Fractions',
+                    question: `${artist.name}'s album is ${pair[0]} sold out. Which fraction is the same?`,
+                    visual: null,
+                    answer: pair[1],
+                    options: generateFractionOptions(parseInt(pair[1].split('/')[0]), parseInt(pair[1].split('/')[1])),
+                    hint: `Find the equivalent fraction! ${artist.emoji}`
+                };
+            }
+        }
+        
+        function generateFractionOptions(num, den) {
+            const correct = `${num}/${den}`;
+            const options = [correct];
+            while (options.length < 4) {
+                const fakeNum = Math.floor(Math.random() * 8) + 1;
+                const fakeDen = [2, 3, 4, 5, 6, 8][Math.floor(Math.random() * 6)];
+                const fake = `${fakeNum}/${fakeDen}`;
+                if (!options.includes(fake) && fakeNum < fakeDen) options.push(fake);
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
+        
+        function generateMultiplicationQuestion() {
+            const artist = getRandomArtist();
+            const a = Math.floor(Math.random() * 9) + 2;
+            const b = Math.floor(Math.random() * 9) + 2;
+            const answer = a * b;
+            
+            const scenarios = [
+                `${artist.name} has ${a} dance practice rooms. Each room has ${b} mirrors. How many mirrors in total?`,
+                `${artist.members[0]} bought ${a} boxes of ${artist.emoji} merchandise. Each box has ${b} items. How many items total?`,
+                `There are ${a} rows of fans at the ${artist.name} concert. Each row has ${b} fans. How many fans are there?`
+            ];
+            
+            return {
+                artist,
+                topic: 'Multiplication',
+                question: scenarios[Math.floor(Math.random() * scenarios.length)],
+                visual: { type: 'grid', rows: a, cols: b },
+                answer: answer.toString(),
+                options: generateNumberOptions(answer),
+                hint: `${a} × ${b} = ? ${artist.emoji}`
+            };
+        }
+        
+        function generateDivisionQuestion() {
+            const artist = getRandomArtist();
+            const divisor = Math.floor(Math.random() * 8) + 2;
+            const quotient = Math.floor(Math.random() * 10) + 1;
+            const dividend = divisor * quotient;
+            
+            const memberCount = artist.members.length;
+            const scenarios = [
+                `${artist.name} has ${dividend} concert tickets to share equally among ${divisor} fan clubs. How many tickets does each club get?`,
+                `${dividend} lightsticks are divided equally among ${divisor} fans. How many does each fan get?`,
+                `${artist.members[0]} has ${dividend} photo cards to give to ${divisor} friends equally. How many does each friend get?`
+            ];
+            
+            return {
+                artist,
+                topic: 'Division',
+                question: scenarios[Math.floor(Math.random() * scenarios.length)],
+                visual: null,
+                answer: quotient.toString(),
+                options: generateNumberOptions(quotient),
+                hint: `${dividend} ÷ ${divisor} = ? ${artist.emoji}`
+            };
+        }
+        
+        function generateAreaQuestion() {
+            const artist = getRandomArtist();
+            const width = Math.floor(Math.random() * 8) + 3;
+            const height = Math.floor(Math.random() * 6) + 3;
+            const area = width * height;
+            
+            const scenarios = [
+                `${artist.name}'s stage is a rectangle that is ${width}m wide and ${height}m long. What is the area of the stage?`,
+                `${artist.members[0]}'s poster is ${width}cm by ${height}cm. What is the area?`,
+                `The ${artist.name} fan banner is ${width} feet wide and ${height} feet tall. What is its area?`
+            ];
+            
+            return {
+                artist,
+                topic: 'Area',
+                question: scenarios[Math.floor(Math.random() * scenarios.length)],
+                visual: { type: 'rectangle', width, height, showArea: true },
+                answer: area.toString(),
+                options: generateNumberOptions(area),
+                hint: `Area = length × width ${artist.emoji}`
+            };
+        }
+        
+        function generatePerimeterQuestion() {
+            const artist = getRandomArtist();
+            const width = Math.floor(Math.random() * 8) + 3;
+            const height = Math.floor(Math.random() * 6) + 3;
+            const perimeter = 2 * (width + height);
+            
+            const scenarios = [
+                `${artist.name} wants to put lights around their rectangular stage (${width}m × ${height}m). How many meters of lights do they need?`,
+                `${artist.members[0]} is framing a ${width}cm by ${height}cm photo. How much frame material is needed?`,
+                `A rectangular ${artist.name} banner is ${width}m wide and ${height}m tall. What is its perimeter?`
+            ];
+            
+            return {
+                artist,
+                topic: 'Perimeter',
+                question: scenarios[Math.floor(Math.random() * scenarios.length)],
+                visual: { type: 'rectangle', width, height, showPerimeter: true },
+                answer: perimeter.toString(),
+                options: generateNumberOptions(perimeter),
+                hint: `Perimeter = 2 × (length + width) ${artist.emoji}`
+            };
+        }
+        
+        function generateNumberOptions(correct) {
+            const options = [correct.toString()];
+            while (options.length < 4) {
+                const offset = Math.floor(Math.random() * 10) - 5;
+                const fake = Math.max(1, correct + offset + (options.length * (Math.random() > 0.5 ? 1 : -1)));
+                if (!options.includes(fake.toString()) && fake !== correct) {
+                    options.push(fake.toString());
+                }
+            }
+            return options.sort(() => Math.random() - 0.5);
+        }
+        
+        function generateQuestions() {
+            questions = [];
+            const generators = {
+                'fractions': generateFractionQuestion,
+                'multiplication': generateMultiplicationQuestion,
+                'division': generateDivisionQuestion,
+                'area': generateAreaQuestion,
+                'perimeter': generatePerimeterQuestion,
+                'mixed': () => {
+                    const all = [generateFractionQuestion, generateMultiplicationQuestion, generateDivisionQuestion, generateAreaQuestion, generatePerimeterQuestion];
+                    return all[Math.floor(Math.random() * all.length)]();
+                }
+            };
+            
+            const topics = selectedTopics.length > 0 ? selectedTopics : ['mixed'];
+            
+            for (let i = 0; i < 10; i++) {
+                const topic = topics[Math.floor(Math.random() * topics.length)];
+                questions.push(generators[topic]());
+            }
+        }
+        
+        function renderVisual(visual) {
+            const container = document.getElementById('question-visual');
+            container.innerHTML = '';
+            
+            if (!visual) return;
+            
+            if (visual.type === 'fraction') {
+                const div = document.createElement('div');
+                div.className = 'fraction-visual';
+                visual.data.forEach(filled => {
+                    const piece = document.createElement('div');
+                    piece.className = 'fraction-piece' + (filled ? ' filled' : '');
+                    div.appendChild(piece);
+                });
+                container.appendChild(div);
+            }
+            
+            if (visual.type === 'grid') {
+                const grid = document.createElement('div');
+                grid.className = 'grid-visual';
+                grid.style.gridTemplateColumns = `repeat(${visual.cols}, 30px)`;
+                for (let i = 0; i < visual.rows * visual.cols; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell filled';
+                    cell.style.animationDelay = (i * 0.05) + 's';
+                    grid.appendChild(cell);
+                }
+                container.appendChild(grid);
+            }
+            
+            if (visual.type === 'rectangle') {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'shape-visual';
+                const rect = document.createElement('div');
+                rect.className = 'rectangle';
+                rect.style.width = (visual.width * 15) + 'px';
+                rect.style.height = (visual.height * 15) + 'px';
+                
+                const widthLabel = document.createElement('span');
+                widthLabel.className = 'dimension width';
+                widthLabel.textContent = visual.width + (visual.showArea ? 'm' : '');
+                
+                const heightLabel = document.createElement('span');
+                heightLabel.className = 'dimension height';
+                heightLabel.textContent = visual.height + (visual.showArea ? 'm' : '');
+                
+                rect.appendChild(widthLabel);
+                rect.appendChild(heightLabel);
+                wrapper.appendChild(rect);
+                container.appendChild(wrapper);
+            }
+        }
+        
+        function startGame() {
+            if (selectedTopics.length === 0) {
+                selectedTopics = ['mixed'];
+            }
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            generateQuestions();
+            showQuestion();
+        }
+        
+        function showQuestion() {
+            const q = questions[current];
+            
+            document.getElementById('artist-name').textContent = q.artist.name;
+            document.getElementById('artist-emoji').textContent = q.artist.emoji;
+            document.getElementById('artist-hint').textContent = q.hint;
+            document.getElementById('question-topic').textContent = q.topic;
+            document.getElementById('question-type').textContent = q.topic;
+            document.getElementById('question-text').textContent = q.question;
+            document.getElementById('feedback').textContent = '';
+            
+            renderVisual(q.visual);
+            
+            const answersDiv = document.getElementById('answers');
+            answersDiv.innerHTML = q.options.map(opt => 
+                `<button class="answer-btn" onclick="checkAnswer('${opt}', this)">${opt}</button>`
+            ).join('');
+        }
+        
+        function checkAnswer(selected, btn) {
+            const q = questions[current];
+            const correct = selected === q.answer;
+            
+            document.querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
+            
+            if (correct) {
+                btn.classList.add('correct');
+                streak++;
+                const points = 10 + (streak > 1 ? streak * 2 : 0);
+                score += points;
+                const cheers = ['💜 Perfect!', '✨ Amazing!', '🌟 Daebak!', '🔥 Fighting!', '⭐ Incredible!', '🎤 You\'re a star!'];
+                document.getElementById('feedback').textContent = cheers[Math.floor(Math.random() * cheers.length)];
+            } else {
+                btn.classList.add('wrong');
+                document.querySelectorAll('.answer-btn').forEach(b => {
+                    if (b.textContent === q.answer) b.classList.add('correct');
+                });
+                streak = 0;
+                document.getElementById('feedback').textContent = `The answer was ${q.answer} 💪 Keep going!`;
+            }
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = `🔥 ${streak}`;
+            
+            setTimeout(() => {
+                current++;
+                document.getElementById('current').textContent = Math.min(current + 1, 10);
+                if (current < 10) {
+                    showQuestion();
+                } else {
+                    endGame();
+                }
+            }, 1800);
+        }
+        
+        function endGame() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('end-screen').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+            
+            let message = '';
+            if (score >= 130) message = '🏆 Superstar! You\'re ready for a world tour!';
+            else if (score >= 100) message = '🌟 Amazing! Main dancer energy!';
+            else if (score >= 70) message = '💪 Great job! Keep practicing, trainee!';
+            else message = '🎤 Good start! Every idol starts somewhere!';
+            
+            document.getElementById('final-message').textContent = message;
+            
+            // Show achievements
+            const achievementsDiv = document.getElementById('achievements');
+            achievementsDiv.innerHTML = '';
+            
+            const achievements = [];
+            if (score >= 100) achievements.push({ emoji: '🏆', label: 'High Score!' });
+            if (streak >= 3) achievements.push({ emoji: '🔥', label: 'Hot Streak!' });
+            if (selectedTopics.length >= 4) achievements.push({ emoji: '📚', label: 'Multi-Talent!' });
+            
+            achievements.forEach(a => {
+                achievementsDiv.innerHTML += `<div class="achievement"><div class="emoji">${a.emoji}</div><div class="label">${a.label}</div></div>`;
+            });
+        }
+    </script>
+</body>
+</html>
